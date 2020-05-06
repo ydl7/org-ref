@@ -2686,17 +2686,15 @@ long file with headlines for each entry."
     (insert key)
     (kill-ring-save (point-min) (point-max)))
   (let ((entry (with-temp-buffer
-		 (insert (org-ref-get-bibtex-entry key))
-		 (bibtex-mode)
-		 (bibtex-set-dialect nil t)
-		 (bibtex-beginning-of-entry)
-		 (bibtex-parse-entry)) ))
-
+                 (insert (org-ref-get-bibtex-entry key))
+                 (bibtex-mode)
+                 (bibtex-set-dialect nil t)
+                 (bibtex-beginning-of-entry)
+                 (bibtex-parse-entry))))
     (save-restriction
-      (if  org-ref-bibliography-notes
-	  (find-file-other-window org-ref-bibliography-notes)
-	(error "org-ref-bibliography-notes is not set to anything"))
-
+      (if org-ref-bibliography-notes
+          (find-file-other-window org-ref-bibliography-notes)
+        (error "org-ref-bibliography-notes is not set to anything"))
       (widen)
       (goto-char (point-min))
       (let* ((headlines (org-element-map
